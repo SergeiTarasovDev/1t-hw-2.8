@@ -1,12 +1,12 @@
-
-CREATE TABLE course_1t.sales
+CREATE DATABASE IF NOT EXISTS course_1t;
+CREATE TABLE IF NOT EXISTS course_1t.sales
 (
-	order_date Date,
-	category String,
-	product_name String,
-	revenue Int32
+    sale_id     Int32,      -- Идентификатор продажи
+	order_date  Date,       -- Дата продажи
+	category    String,     -- Категория товара
+	revenue     Int32       -- Выручка от продажи
 )
-ENGINE = AggregatingMergeTree
+ENGINE = MergeTree()
 PARTITION BY toYYYYMM(order_date)
-ORDER BY (order_date, product_name)
-PRIMARY KEY (order_date, product_name)
+ORDER BY (sale_id, order_date, category)
+PRIMARY KEY (sale_id)
